@@ -8,7 +8,7 @@ class Node:
 
 class LinkedList:
     def __init__(self, node = None):
-        self.head = None
+        self.head = Node(node)
     def __repr__(self):
         node = self.head
         result = ""
@@ -23,6 +23,7 @@ class LinkedList:
         while cnode != None:
             if cnode.next == None:
                 cnode.next = Node(node)
+                break
             else:
                 cnode = cnode.next
 
