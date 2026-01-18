@@ -9,25 +9,25 @@ class Node:
         return str(self.data)
 
 class LinkedList:
-    def __init__(self, node: Any = None):
-        self.head = Node(node)
+    def __init__(self, data: Any = None):
+        self.head = Node(data)
         self.tail = self.head
     def __repr__(self):
         node = self.head
-        result = ""
+        result = []
         while node != None:
-            result += str(node.data) + " -> "
+            result.append(str(node.data))
             node = node.next
-        result += "None"
-        return result
-    def add(self, node):
-        self.tail.next == Node(node)
+        return ' -> '.join(result)
+    def add_first(self, data):
+        first = Node(data)
+        first.next = self.head
+        self.head = first
+    def pop(self):
+        if self.head.data != None and self.head.next != None:
+            result = self.head.data
+            self.head = self.head.next
+            return result
 
-
-if __name__ == "__main__":
-    llist = LinkedList([1,2,3])
-    llist.add(24)
-    llist.add("this")
-    llist.add([])
-    llist.add([{"test": 1, "test": 2}])
-    print(llist)
+llist = LinkedList()
+print(llist.__repr__())
