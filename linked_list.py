@@ -28,6 +28,3 @@ class LinkedList:
             result = self.head.data
             self.head = self.head.next
             return result
-
-llist = LinkedList()
-print(llist.__repr__())
