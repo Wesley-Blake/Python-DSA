@@ -28,3 +28,11 @@ class LinkedList:
             result = self.head.data
             self.head = self.head.next
             return result
+    def append(self, data):
+        if self.tail.data == None:
+            self.head = Node(data)
+            self.tail = head
+        else:
+            last = self.tail
+            last.next = Node(data)
+            self.tail = last.next
