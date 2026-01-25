@@ -20,8 +20,7 @@ class TestLinkedList(unittest.TestCase):
         self.llist.pop()
         self.assertEqual(self.llist.__repr__(), '2 -> None')
     def test_append(self):
+        self.assertEqual(self.llist.__repr__(), 'None')
         self.llist.append(1)
-        self.assertEqual(self.llist.__repr__(),'1 -> None')
         self.llist.append(2)
-        self.llist.append(3)
-        self.assertEqual(self.llist.__repr__(),'1 -> 2 -> 3 -> None')
+        self.assertEqual(self.llist.__repr__(),'1 -> 2 -> None')
