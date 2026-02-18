@@ -1,4 +1,5 @@
-from heap import Heap
+import pytest
+from heap import Heap, heap_error
 
 def test_heap_heapify():
     heap_heapify = Heap()
@@ -6,4 +7,5 @@ def test_heap_heapify():
     assert len(heap_heapify._heap) == 3
 def test_fail_heap_heapify():
     failed_heap = Heap()
-    failed_heap.heapify(1)
+    with pytest.raises(heap_error):
+        failed_heap.heapify(1)
