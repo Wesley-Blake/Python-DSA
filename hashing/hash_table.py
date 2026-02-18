@@ -29,15 +29,31 @@ class HashTable:
             return False
         else:
             return True
+    def __iter__(self):
+        yield from self.keys
+    def __str__(self):
+        pairs = []
+        for key, value in self.pairs:
+            pairs.append(f"{key!r}: {value!r}")
+        return "{" + ", ".join(pairs) + "}"
     def get(self, key, default = None):
         try:
             return self[key]
         except:
             self[key] = default
             return self[key]
+    @classmethod
+    def from_dict(cls, dictionary):
+        hash_table = cls(len(dictionary) * 10)
+        for key, value in dictionary.items():
+            hash_table[key] = value
+        return hash_table
     @property
     def pairs(self):
         return [pair for pair in self._pairs if pair]
+    @property
+    def keys(self):
+        return [pair.key for pair in self.pairs]
     @property
     def values(self):
         return [pair.value for pair in self.pairs]

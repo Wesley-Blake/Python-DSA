@@ -1,5 +1,6 @@
 import pytest
 from hash_table import HashTable
+from pytest_unordered import unordered
 
 @pytest.fixture
 def hash_table():
@@ -80,3 +81,36 @@ def test_should_return_duplicate_values():
     hash_table["Bob"] = 42
     hash_table["Joe"] = 42
     assert [24, 42, 42] == sorted(hash_table.values)
+def test_should_create_empty_value_slots():
+    assert HashTable(capacity=3)._pairs == [None, None, None]
+def test_should_iterate_over_keys(hash_table):
+    for key in hash_table.keys:
+        assert key in ("hola", 98.6, False)
+def test_should_iterate_over_values(hash_table):
+    for value in hash_table.values:
+        assert value in ("hello", 37, True)
+def test_should_iterate_over_pairs(hash_table):
+    for key, value in hash_table.pairs:
+        assert key in hash_table.keys
+        assert value in hash_table.values
+def test_should_use_dict_literal_for_str(hash_table):
+    assert str(hash_table) in {
+        "{'hola': 'hello', 98.6: 37, False: True}",
+        "{'hola': 'hello', False: True, 98.6: 37}",
+        "{98.6: 37, 'hola': 'hello', False: True}",
+        "{98.6: 37, False: True, 'hola': 'hello'}",
+        "{False: True, 'hola': 'hello', 98.6: 37}",
+        "{False: True, 98.6: 37, 'hola': 'hello'}",
+    }
+def test_should_create_hashtable_from_dict():
+    dictionary = {"hola": "hello", 98.6: 37, False: True}
+
+    hash_table = HashTable.from_dict(dictionary)
+
+    assert len(hash_table) == len(dictionary) * 10
+    for item in dictionary.keys():
+        assert item in hash_table.keys
+    for dict_key, dict_value in dictionary.items():
+        assert dict_key in hash_table.keys
+        assert dict_value in hash_table.values
+    assert unordered(hash_table.values) == list(dictionary.values())
